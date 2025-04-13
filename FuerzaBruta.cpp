@@ -22,15 +22,8 @@ for (int i = 0; i < a; i++){
 
     arr[i].first = x;
     arr[i].second = y;
-
-    //cout<<arr[i].first<<","<<arr[i].second<<endl;
 }
 
-/*pair<int,int> arr[3];
-arr[0].first = 30, arr[0].second = 10;
-arr[1].first = 15, arr[1].second = 5;
-arr[2].first = 29, arr[2].second = 9;
-*/
 for (int i = 0; i < a; i++){
     for ( int j = 0; j < a; j++){
         pair <int,int> menor;
@@ -45,21 +38,23 @@ for (int i = 0; i < a; i++){
         //En caso que ambos puntos tengan el mismo valor en X
         if(arr[i].first == arr[j].first){
             if(arr[i].second > arr[j].second){
-                result = arr[i].second - arr[j].second;
-                continue;
+                hypo = arr[i].second - arr[j].second;
             }else{
-                result = arr[j].second - arr[i].second;
-                continue;
+                hypo = arr[j].second - arr[i].second;
+            }
+            if(hypo < result){
+                result = hypo;
             }
         }
         //En caso que ambos puntos tengan el mismo valor en Y
         if(arr[i].second == arr[j].second){
             if(arr[i].first > arr[j].first){
-                result = arr[i].first - arr[j].first;
-                continue;
+                hypo = arr[i].first - arr[j].first;
             }else{
-                result = arr[j].first - arr[i].first;
-                continue;
+                hypo = arr[j].first - arr[i].first;
+            }
+            if(hypo < result){
+                result = hypo;
             }
         }
         //En caso de que uno de los puntos tenga ambas coordenadas mayores al otro
