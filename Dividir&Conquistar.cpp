@@ -4,6 +4,7 @@
 #include <algorithm>
 #include <cstdlib>
 #include <ctime>
+#include <random>
 
 using namespace std;
 
@@ -14,7 +15,7 @@ double dist(par x1, par x2)
   return sqrt((x1.first - x2.first) * (x1.first - x2.first) + (x1.second - x2.second) * (x1.second - x2.second));
 }
 
-double closestPoints(const vector<par> &points, int l, int r)
+double dividirPorConquistar(const vector<par> &points, int l, int r)
 {
   int size = r - l;
   if (size == 2)
@@ -23,8 +24,8 @@ double closestPoints(const vector<par> &points, int l, int r)
     return min({dist(points[l], points[l + 1]), dist(points[l], points[l + 2]), dist(points[l + 1], points[l + 2])});
 
   int m = l + (r - l) / 2;
-  double dl = closestPoints(points, l, m);
-  double dr = closestPoints(points, m, r);
+  double dl = dividirPorConquistar(points, l, m);
+  double dr = dividirPorConquistar(points, m, r);
   double d = min(dl, dr);
 
   int sl = m, sr = m;
@@ -51,30 +52,14 @@ double closestPoints(const vector<par> &points, int l, int r)
   return d;
 }
 
-void generateRandomPoints(vector<par> &points, int count, int minCoord = 100, int maxCoord = 1100)
-{
-  srand(time(NULL));
-  for (int i = 0; i < count; ++i)
-  {
-    double x = minCoord + rand() % (maxCoord - minCoord + 1);
-    double y = minCoord + rand() % (maxCoord - minCoord + 1);
-    points.emplace_back(x, y);
+void generateRandomPoints(vector<par> &points, int count, mt19937_64 &rng, int minCoord = 100, int maxCoord = 1100) {
+  uniform_real_distribution<double> distX(minCoord, maxCoord);
+  uniform_real_distribution<double> distY(minCoord, maxCoord);
+
+  points.clear();
+  points.reserve(count);
+  for (int i = 0; i < count; ++i) {
+      points.emplace_back(distX(rng), distY(rng));
   }
 }
 
-int main()
-{
-  vector<par> points;
-  int cantidad = 1 + rand() % 51;
-  generateRandomPoints(points, cantidad);
-
-  // Ordena los puntos en la coordenada x
-  sort(points.begin(), points.end(), [](const par &a, const par &b)
-       { return a.first < b.first; });
-
-  double d = closestPoints(points, 0, points.size());
-
-  cout << "La menor distancia entre puntos es: " << d << endl;
-
-  return 0;
-}
