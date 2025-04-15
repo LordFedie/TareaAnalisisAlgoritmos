@@ -9,7 +9,7 @@ int main(){
 
 srand(time(NULL));
 
-int a = 1 + rand() % (51); 
+int a = 1 + rand() % (51);
 double result = 100000;
 pair <int,int> arr[a];
 
@@ -107,6 +107,6 @@ for (int i = 0; i < a; i++){
     }
 }
 
-cout<<"la menor distancia entre puntos es:"<< result <<endl;
+cout<<"La menor distancia entre puntos es:"<< result <<endl;
 
 }
