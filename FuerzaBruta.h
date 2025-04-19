@@ -1,5 +1,5 @@
 #include <iostream>
-#include <cstdlib> 
+#include <cstdlib>
 #include <ctime>
 #include <cmath>
 #ifndef FUERZABRUTA_H

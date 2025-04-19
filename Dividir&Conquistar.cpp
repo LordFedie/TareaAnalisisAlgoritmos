@@ -18,16 +18,19 @@ double dist(par x1, par x2)
 double dividirPorConquistar(const vector<par> &points, int l, int r)
 {
   int size = r - l;
+  // Casos base
   if (size == 2)
     return dist(points[l], points[l + 1]);
   if (size == 3)
     return min({dist(points[l], points[l + 1]), dist(points[l], points[l + 2]), dist(points[l + 1], points[l + 2])});
 
+  // Recursividad de la función
   int m = l + (r - l) / 2;
   double dl = dividirPorConquistar(points, l, m);
   double dr = dividirPorConquistar(points, m, r);
   double d = min(dl, dr);
 
+  // Franja al rededor de la línea central creada (m)
   int sl = m, sr = m;
   while (sl > l && points[m].first - points[sl - 1].first < d)
     sl--;
