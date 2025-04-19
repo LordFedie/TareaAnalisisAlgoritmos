@@ -16,8 +16,11 @@
 #include <iostream>
 #include <random>
 #include <vector>
-
+#include "n_random.h"
+#include "FuerzaBruta.h"
 #include "utils.cpp"
+#include "quartiles_nth.cpp"
+#include "Dividir&Conquistar.cpp"
 
 // Include to be tested files here
 
@@ -51,11 +54,19 @@ int main(int argc, char *argv[])
     // Begin testing
     std::cerr << "\033[0;36mRunning tests...\033[0m" << std::endl << std::endl;
     executed_runs = 0;
+    
     for (n = lower; n <= upper; n += step) {
         mean_time = 0;
         time_stdev = 0;
 
         // Test configuration goes here
+
+        pair<double,double> arr[n];
+
+        /*
+        double resultado;
+        vector <pair<double,double>> par;
+        */
 
         // Run to compute elapsed time
         for (i = 0; i < runs; i++) {
@@ -63,7 +74,17 @@ int main(int argc, char *argv[])
             display_progress(++executed_runs, total_runs_additive);
 
             begin_time = std::chrono::high_resolution_clock::now();
-            // Function to test goes here
+
+            
+            n_random(arr,n);
+            brute_force(arr,n);
+            
+
+            /*
+            generateRandomPoints(par,100,rng);
+            resultado = dividirPorConquistar(par,0,par.size());
+            */
+
             end_time = std::chrono::high_resolution_clock::now();
 
             elapsed_time = end_time - begin_time;

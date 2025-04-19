@@ -2,39 +2,24 @@
 #include <cstdlib> 
 #include <ctime>
 #include <cmath>
-
+#ifndef FUERZABRUTA_H
+#define FUERZABRUTA_H
 using namespace std;
 
-int main(){
+void brute_force(pair<double,double> arr[], int a){
 
-srand(time(NULL));
-
-int a = 1 + rand() % (51);
-double result = 100000;
-pair <int,int> arr[a];
-
-cout << a << endl;
-
-for (int i = 0; i < a; i++){
-    int x,y;
-    x= 100 + rand() % (1001);
-    y= 100 + rand() % (1001);
-
-    arr[i].first = x;
-    arr[i].second = y;
-}
+    double result = 10000000;
 
 for (int i = 0; i < a; i++){
     for ( int j = 0; j < a; j++){
-        pair <int,int> menor;
-        pair <int,int> mayor;
-        int cat1, cat2;
+        pair <double,double> menor;
+        pair <double,double> mayor;
+        double cat1, cat2;
         double hypo;
 
         if(i==j){
             continue;
         }
-
         //En caso que ambos puntos tengan el mismo valor en X
         if(arr[i].first == arr[j].first){
             if(arr[i].second > arr[j].second){
@@ -78,7 +63,6 @@ for (int i = 0; i < a; i++){
                 result = hypo;
             }
         }
-        
         //En caso que ambos puntos tengan solo una coordenada mayor que el otro
         if(arr[i].first < arr[j].first && arr[i].second > arr[j].second || arr[i].first > arr[j].first && arr[i].second < arr[j].second){
             if(arr[i].first<arr[j].first){
@@ -107,6 +91,24 @@ for (int i = 0; i < a; i++){
     }
 }
 
-cout<<"La menor distancia entre puntos es:"<< result <<endl;
+cout<<"La menor distancia entre puntos es:"<< result;
 
 }
+
+#endif
+/*srand(time(NULL));
+
+int a = 1 + rand() % (51);
+
+pair <int,int> arr[a];
+
+cout << a << endl;
+
+for (int i = 0; i < a; i++){
+    int x,y;
+    x= 100 + rand() % (1001);
+    y= 100 + rand() % (1001);
+
+    arr[i].first = x;
+    arr[i].second = y;
+}*/
