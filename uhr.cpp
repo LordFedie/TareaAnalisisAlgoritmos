@@ -78,13 +78,13 @@ int main(int argc, char *argv[])
 
       begin_time = std::chrono::high_resolution_clock::now();
 
-      n_random(arr, n);
-      brute_force(arr, n);
+      /*n_random(arr, n);
+      brute_force(arr, n);*/
 
-      /*
+      
       n_random(arr, n);
-      divide_and_conquer(arr, n);
-      */
+      dividir_por_conquistar(arr, n);
+      
 
       end_time = std::chrono::high_resolution_clock::now();
 
