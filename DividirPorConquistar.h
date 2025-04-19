@@ -1,8 +1,10 @@
-
+#include <iostream>
 #include <vector>
 #include <cmath>
 #include <algorithm>
-#include <utility>
+#include <cstdlib>
+#include <ctime>
+#include <random>
 #ifndef DIVIDIRPORCONQUISTAR_H
 #define DIVIDIRPORCONQUISTAR_H
 
@@ -10,49 +12,57 @@ using namespace std;
 
 typedef pair<double, double> par;
 
-inline double dividirPorConquistar(const vector<par> &points, int l, int r)
+double dist(par x1, par x2)
 {
-    int size = r - l;
-    // Casos base
-    if (size == 2)
-        return hypot(points[l].first - points[l + 1].first, points[l].second - points[l + 1].second);
-    if (size == 3)
-        return min({
-            hypot(points[l].first - points[l + 1].first, points[l].second - points[l + 1].second),
-            hypot(points[l].first - points[l + 2].first, points[l].second - points[l + 2].second),
-            hypot(points[l + 1].first - points[l + 2].first, points[l + 1].second - points[l + 2].second)
-        });
-    
-    int m = l + (r - l) / 2;
-    double dl = dividirPorConquistar(points, l, m);
-    double dr = dividirPorConquistar(points, m, r);
-    double d = min(dl, dr);
-
-    int sl = m, sr = m;
-    while (sl > l && points[m].first - points[sl - 1].first < d) sl--;
-    while (sr < r - 1 && points[sr + 1].first - points[m].first < d) sr++;
-
-    vector<par> strip(points.begin() + sl, points.begin() + sr + 1);
-    sort(strip.begin(), strip.end(), [](const par &a, const par &b) {
-        return a.second < b.second;
-    });
-
-    for (size_t i = 0; i < strip.size(); ++i) {
-        for (int j = 0; j < 7; ++j) {
-            if (i + j + 1 >= strip.size()) break;
-            d = min(d, hypot(strip[i].first - strip[i + j + 1].first, strip[i].second - strip[i + j + 1].second));
-        }
-    }
-
-    return d;
+  return sqrt((x1.first - x2.first) * (x1.first - x2.first) + (x1.second - x2.second) * (x1.second - x2.second));
 }
 
-inline double dividir_por_conquistar(par arr[], int n)
+double dividirPorConquistar(const vector<par> &points, int l, int r)
 {
-    vector<par> points(arr, arr + n);
-    sort(points.begin(), points.end()); // Ordenar por coordenada x
-    return dividirPorConquistar(points, 0, n);
+  int size = r - l;
+  if (size == 2)
+    return dist(points[l], points[l + 1]);
+  if (size == 3)
+    return min({dist(points[l], points[l + 1]), dist(points[l], points[l + 2]), dist(points[l + 1], points[l + 2])});
+
+  int m = l + (r - l) / 2;
+  double dl = dividirPorConquistar(points, l, m);
+  double dr = dividirPorConquistar(points, m, r);
+  double d = min(dl, dr);
+
+  int sl = m, sr = m;
+  while (sl > l && points[m].first - points[sl - 1].first < d)
+    sl--;
+  while (sr < r - 1 && points[sr + 1].first - points[m].first < d)
+    sr++;
+
+  vector<par> strip(points.begin() + sl, points.begin() + sr + 1);
+  sort(strip.begin(), strip.end(), [](const par &a, const par &b)
+       { return a.second < b.second; });
+
+  // Comparar puntos
+  for (int i = 0; i < strip.size(); i++)
+  {
+    for (int j = 0; j < 7; j++)
+    {
+      if (i + j + 1 >= strip.size())
+        break;
+      d = min(d, dist(strip[i], strip[i + j + 1]));
+    }
+  }
+
+  return d;
+}
+
+void generateRandomPoints(vector<par> &points, int count, mt19937_64 &rng, int minCoord = 100, int maxCoord = 1100) {
+  uniform_real_distribution<double> distX(minCoord, maxCoord);
+  uniform_real_distribution<double> distY(minCoord, maxCoord);
+
+  points.clear();
+  points.reserve(count);
+  for (int i = 0; i < count; ++i) {
+      points.emplace_back(distX(rng), distY(rng));
+  }
 }
 
 #endif
-

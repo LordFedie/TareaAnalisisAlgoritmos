@@ -63,12 +63,10 @@ int main(int argc, char *argv[])
 
     // Test configuration goes here
 
-    pair<double, double> arr[n];
+    pair<double,double> arr[n];
 
-    /*
     double resultado;
-    vector <pair<double,double>> par;
-    */
+    vector<pair<double, double>> par;
 
     // Run to compute elapsed time
     for (i = 0; i < runs; i++)
@@ -78,13 +76,13 @@ int main(int argc, char *argv[])
 
       begin_time = std::chrono::high_resolution_clock::now();
 
-      /*n_random(arr, n);
-      brute_force(arr, n);*/
+      
+      n_random(arr,n);
+      brute_force(arr,n);
+      
 
-      
-      n_random(arr, n);
-      dividir_por_conquistar(arr, n);
-      
+      /*generateRandomPoints(par, 100, rng);
+      resultado = dividirPorConquistar(par, 0, par.size());*/
 
       end_time = std::chrono::high_resolution_clock::now();
 
