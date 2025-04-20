@@ -21,7 +21,6 @@ double dist(const par &a, const par &b) {
 double dividirPorConquistar(const vector<par> &points, int l, int r)
 {
   int size = r - l;
-  if(siez==1) return numeric_limits<double>::infinity(); //no existe distancia
   if (size == 2)
     return dist(points[l], points[l + 1]);
   if (size == 3)
