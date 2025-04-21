@@ -1,3 +1,5 @@
 .vscode/
+.venv/
 output/
+urh
 *.exe

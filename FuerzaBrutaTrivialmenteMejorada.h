@@ -2,25 +2,27 @@
 #include <vector>
 #include <cmath>
 #include <utility> // Para std::pair
+#ifndef FUERZABRUTATRIVIALMENTEMEJORADO_H
+#define FUERZABRUTATRIVIALMENTEMEJORADO_H
 
 using namespace std;
 
-void brute_force(const vector<pair<double, double>>& puntos) {
+void better_brute_force(const vector<pair<double, double>>& puntos) {
     double result = INFINITY; // mejor que 10000000
 
     for (int i = 0; i < puntos.size(); i++) {
-        for (int j = i + 1; j < puntos.size(); j++) { // j = i + 1 evita colisiones
+        for (int j = i+1 ; j < puntos.size(); j++) { // j = i + 1 evita colisiones
+            
             double dx = puntos[i].first - puntos[j].first;
             double dy = puntos[i].second - puntos[j].second;
-            double distancia = sqrt(dx * dx + dy * dy); // cálculo directo sin ifs
+            double distancia = dx * dx + dy * dy; // cálculo directo sin ifs
             if (distancia < result) {
                 result = distancia;
             }
         }
     }
-
-    cout << "La menor distancia entre puntos es: " << result << endl;
 }
+#endif
 
 /*Dado este arreglo de puntos donde buscamos comparar su distancia para hallar la menor distancia entre cada punto, con un enfoque que 
 utiliza la fuerza bruta. Podemos observar que en el algoritmo pueden haber colisiones entre ambos loops principales, lo cual nos hace 

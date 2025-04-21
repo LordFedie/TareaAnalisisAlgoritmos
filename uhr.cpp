@@ -17,10 +17,12 @@
 #include <random>
 #include <vector>
 #include "n_random.h"
-#include "FuerzaBruta.h"
 #include "utils.cpp"
 #include "quartiles_nth.cpp"
+#include "FuerzaBruta.h"
+#include "FuerzaBrutaTrivialmenteMejorada.h"
 #include "DividirPorConquistar.h"
+#include "DividirPorConquistarMejoradoTrivialmente.h"
 
 // Include to be tested files here
 
@@ -74,15 +76,22 @@ int main(int argc, char *argv[])
       // Remember to change total depending on step type
       display_progress(++executed_runs, total_runs_additive);
 
+      //n_random(arr,n);
+      generateRandomPoints(par, n, rng);
+
       begin_time = std::chrono::high_resolution_clock::now();
 
       
-      n_random(arr,n);
-      brute_force(arr,n);
-      
+      //brute_force(arr,n);
+            
+      //dividirPorConquistar(par, 0, par.size());
 
-      /*generateRandomPoints(par, 100, rng);
-      resultado = dividirPorConquistar(par, 0, par.size());*/
+      //better_brute_force(par);
+
+      dividirPorConquistar2(par, 0, par.size());
+
+
+
 
       end_time = std::chrono::high_resolution_clock::now();
 
