@@ -10,6 +10,7 @@ Este proyecto implementa distintos algoritmos para la comparación de puntos, in
 - `uhr.cpp` (Archivo principal)
 - `utils.cpp`
 - `quartiles_nth.cpp`
+- `n_random.h`
 
 ## Pasos para Ejecutar
 
