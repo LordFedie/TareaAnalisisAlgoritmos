@@ -81,7 +81,10 @@ int main(int argc, char *argv[])
 
       begin_time = std::chrono::high_resolution_clock::now();
 
-      
+      // F U N C I O N E S
+      // SÓLO UNA FUNCIÓN DEBE ESTAR SIN COMENTAR
+      // descomentar la que se desee usar
+
       //brute_force(arr,n);
             
       //dividirPorConquistar(par, 0, par.size());
